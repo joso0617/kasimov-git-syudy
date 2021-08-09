@@ -1,28 +1,39 @@
 #include <iostream>
 using namespace std;
 
-class Pizza
+class MyArray
 {
-    int radius;
 public:
-    Pizza(int  r = 0) : radius{r} {}
-    ~Pizza() {}
-    void setRadius(int r) {radius = r;}
-    void print() { cout << "Pizza(" << radius << ")" << endl; }
+    int size;
+    int* data;
+    MyArray(int size);
+    MyArray(const MyArray& other);
+    ~MyArray();
 };
 
-Pizza createPizza()
+MyArray::MyArray(int size)
 {
-    Pizza p(10);
-    return p;
+    this->size = size;
+    data = new int[size];
+}
+
+MyArray::MyArray(const MyArray& other)
+{
+    this->size = other.size;
+    this->data = new int[other.size];
+    for(int i=0; i<size; i++)
+        this->data[i] = other.data[i];
+}
+
+MyArray::~MyArray()
+{
+    if(data != nullptr) delete[] this->data;
+    data = nullptr;
 }
 
 int main()
 {
-    Pizza obj;
-    obj = createPizza();
 
-    obj.print();
-
+    
     return 0;
 }
